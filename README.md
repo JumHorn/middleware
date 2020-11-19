@@ -1,4 +1,4 @@
-# collections of useful middleware for myself
+# collections of useful middleware
 
 ## RingBuffer
 
@@ -163,3 +163,35 @@ int main()
 	return 0;
 }
 ```
+
+## Nginx
+1. 负载均衡
+
+## Redis
+
+### 连接redis
+
+1. 编译安装hiredis
+> https://github.com/redis/hiredis
+
+2. hiredis reply定义
+
+```C++
+/* This is the reply object returned by redisCommand() */
+typedef struct redisReply {
+	/*命令执行结果的返回类型*/
+	int type; /* REDIS_REPLY_* */
+	/*存储执行结果返回为整数*/
+	long long integer; /* The integer when type is REDIS_REPLY_INTEGER */
+	/*字符串值的长度*/
+	size_t len; /* Length of string */
+	/*存储命令执行结果返回是字符串*/
+	char *str; /* Used for both REDIS_REPLY_ERROR and REDIS_REPLY_STRING */
+	/*返回结果是数组的大小*/
+	size_t elements; /* number of elements, for REDIS_REPLY_ARRAY */
+	/*存储执行结果返回是数组*/
+	struct redisReply **element; /* elements vector for REDIS_REPLY_ARRAY */
+} redisReply;
+```
+
+## ZeroMQ
