@@ -195,3 +195,8 @@ typedef struct redisReply {
 ```
 
 ## ZeroMQ
+
+### REQ/REP模型
+### PUB/SUB模型
+### PULL/PUSH模型
+### Router/Dealer模型

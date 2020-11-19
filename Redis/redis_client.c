@@ -2,7 +2,7 @@
 
 /*
 compile command
-gcc -o client redis_client -lhiredis
+gcc -o client redis_client.c -lhiredis
 */
 
 #define REDIS_SERVERIP "192.168.10.155"
