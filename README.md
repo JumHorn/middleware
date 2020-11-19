@@ -15,6 +15,14 @@
 
 ## brpc
 
+demo的源码在example目录下
+
+### mac下编译BRPC出现openssl问题
+```shell
+brew info openssl
+```
+重新生成CMakeLists.txt
+
 ## coroutines
 
 ### 目的
