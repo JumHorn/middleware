@@ -1,3 +1,14 @@
+/**
+ * @file apple_base64_test.cpp
+ * @author JumHorn (JumHorn@gamil.com)
+ * @brief apple base64 code test
+ * @version 0.1
+ * @date 2020-11-24
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #include "base64.h"
 #include <array>
 #include <iostream>
