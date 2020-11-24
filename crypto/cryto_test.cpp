@@ -16,15 +16,20 @@
 #include <iostream>
 using namespace std;
 
+void print(vector<unsigned char> &v)
+{
+	for (auto c : v)
+		printf("%02x", c);
+	cout << endl;
+}
+
 int main()
 {
 	// this is the same result as md5sum command
 	Crypto crypto;
 	crypto.addData("hello world");
 	auto encoded = crypto.result();
-	for (auto c : encoded)
-		printf("%02x", c);
-	cout << endl;
+	print(encoded);
 
 	//empty md5 hash d41d8cd98f00b204e9800998ecf8427e
 	// unsigned char data[MD5_DIGEST_LENGTH];
@@ -32,5 +37,9 @@ int main()
 	// for (int i = 0; i < MD5_DIGEST_LENGTH; ++i)
 	// 	printf("%02x", data[i]);
 	// cout << endl;
+
+	auto res = Crypto::hash("hello world", Crypto::SHA256);
+	print(res);
+
 	return 0;
 }

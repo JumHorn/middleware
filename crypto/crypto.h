@@ -31,15 +31,31 @@ public:
 	};
 
 public:
-	Crypto(Crypto::Algorithm method = MD5);
+	/**
+	 * @brief now only implement MD5
+	 *
+	 * @param method
+	 */
+	Crypto(Algorithm method = MD5);
 	~Crypto();
 	void addData(const char *data, int length = -1);
 	void addData(const string &data);
 	void reset();
 	vector<unsigned char> result() const;
 
+	/**
+	 * @brief static only once hash method include MD5,SHA256,BASE64
+	 *
+	 * @param data
+	 * @param method
+	 * @return vector<unsigned char>
+	 */
+	static vector<unsigned char> hash(const char *data, Algorithm method = MD5);
+	static vector<unsigned char> hash(const string &data, Algorithm method = MD5);
+	static vector<unsigned char> hash(const unsigned char *data, int datalen, Algorithm method);
+
 private:
-	Crypto::Algorithm method;
+	Algorithm method;
 	shared_ptr<MD5_CTX> context;
 };
 
