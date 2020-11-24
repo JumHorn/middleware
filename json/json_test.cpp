@@ -95,6 +95,12 @@ int main()
 	//     "pi": 3.141
 	// }
 
+	auto iter = j3.find("happy");
+	if (iter != j3.end())
+	{
+		std::cout << *iter << std::endl;
+	}
+
 	//for more
 	//https: //github.com/nlohmann/json
 
