@@ -13,3 +13,5 @@
 * json.hpp
 
 2. compile
+
+--std=c++11
