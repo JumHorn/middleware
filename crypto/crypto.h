@@ -54,6 +54,13 @@ public:
 	static vector<unsigned char> hash(const string &data, Algorithm method = MD5);
 	static vector<unsigned char> hash(const unsigned char *data, int datalen, Algorithm method);
 
+	/**
+	 * @brief encrypt/decrypt for des using ecb with default keys
+	 *
+	 */
+	static string des_encrypt(const string &input);
+	static string des_decrypt(const string &input);
+
 private:
 	Algorithm method;
 	shared_ptr<MD5_CTX> context;

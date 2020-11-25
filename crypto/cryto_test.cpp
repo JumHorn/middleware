@@ -41,5 +41,12 @@ int main()
 	auto res = Crypto::hash("hello world", Crypto::SHA256);
 	print(res);
 
+	//des test
+	string text = "hello world";
+	string encoded_text = Crypto::des_encrypt(text);
+	cout << encoded_text << endl;
+	text = Crypto::des_decrypt(encoded_text);
+	cout << text << endl;
+
 	return 0;
 }
