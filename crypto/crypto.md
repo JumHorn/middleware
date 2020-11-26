@@ -4,7 +4,7 @@
 
 compile
 ```shell
-g++ -std=c++11 -o test cryto_test.cpp crypto.cpp -L/usr/local/opt/openssl@1.1/lib -I/usr/local/opt/openssl@1.1/include -lcrypto
+g++ -std=c++11 -o test cryto_test.cpp crypto.cpp base64.c -L/usr/local/opt/openssl@1.1/lib -I/usr/local/opt/openssl@1.1/include -lcrypto
 ```
 
 2. cource file
