@@ -11,6 +11,11 @@
 * sub_client.c
 
 ### PULL/PUSH模型
+
+可以用来做负载均衡
+
+> https://zguide.zeromq.org/docs/chapter1/
+
 ### Router/Dealer模型
 
 # 其他用法
