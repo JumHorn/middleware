@@ -1,6 +1,8 @@
 # 模型
-
+1. tutorial
 > https://zguide.zeromq.org/docs/chapter1/#Getting-the-Examples
+2. internal architecture
+> http://wiki.zeromq.org/whitepapers:architecture
 
 ### REQ/REP模型
 * rep_server.c
