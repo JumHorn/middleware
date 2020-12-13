@@ -95,6 +95,8 @@ vscode配置如下
 	"MIMode": "lldb",
 }
 ```
+**attach到进程时,进程阻塞,需要F5继续执行**
+
 2. 进入http事件过程
 ```C
 ngx_event_accept()//接收http请求
