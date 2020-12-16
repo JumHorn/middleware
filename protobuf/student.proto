@@ -1,0 +1,9 @@
+// test for learn protocal buffer basics
+
+syntax = "proto2";
+package school;
+
+message student{
+	required int32 id = 1;
+	optional string name =2;
+}
