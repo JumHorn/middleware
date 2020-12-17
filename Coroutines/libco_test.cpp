@@ -12,7 +12,7 @@
 /*
 compile command
 
-g++ -o test libco_test.cpp -I/path/to/libco -L/path/to/lib/to -lcolib
+g++ -o test libco_test.cpp -I/path/to/libco -L/path/to/lib -lcolib
 */
 
 #include "co_routine.h"
@@ -131,7 +131,7 @@ static void *accept_routine(void *args)
 		socklen_t len = sizeof(addr);
 		int fd = co_accept(listen_fd, (struct sockaddr *)&addr, &len);
 
-		if (fd < 0) //readd listen_fd back to epool
+		if (fd < 0) //add listen_fd back to epool
 		{
 			struct pollfd pf = {0};
 			pf.fd = listen_fd;
