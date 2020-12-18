@@ -15,6 +15,22 @@ coctx_make(coctx_pfn_t pfn);
 coctx_swap();
 ```
 
+## epoll中协程的切换机制
+
+1. co_resume(co)启动一个协程
+2. co_yield()执行权返回到调用co_resume的地方
+### 源码分析
+```C++
+// 主循环
+// 负责调用epoll_wait,唤醒其他协程
+// 包含timeout事件
+co_eventloop()
+
+// accept和read/write都调用co_poll获取事件
+// 获取完事件后co_yield唤醒主循环
+co_poll()
+```
+
 ## hook
 ## 时间轮
 ## 共享栈
