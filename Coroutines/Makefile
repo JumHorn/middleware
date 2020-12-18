@@ -27,7 +27,7 @@ TAR           = tar -cf
 COMPRESS      = gzip -9f
 LINK          = g++
 # LFLAGS        = -Wl,--no-undefined -Wl,-rpath,'$$ORIGIN'
-LIBS          = $(SUBLIBS) -L/Users/jum/OpenSource/libco/build -lcolib
+LIBS          = $(SUBLIBS) -L/Users/jum/OpenSource/libco/lib -lcolib
 AR            = ar cqs
 RANLIB        =
 SED           = sed
@@ -39,16 +39,25 @@ OBJECTS_DIR   = .
 
 ####### Files
 
-SOURCES       = libco_test.cpp
+SOURCES       = libco_core.cpp
 
-OBJECTS       = libco_test.o
+OBJECTS       = libco_core.o
 
 TARGET        = test
 
+
 ####### Build rules
 
-test:  $(OBJECTS)
-	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS)
+ALL : test core
+
+test:  libco_test.o
+	$(LINK) $(LFLAGS) -o test libco_test.o $(LIBS)
 
 libco_test.o: libco_test.cpp
 	$(CXX) -c $(CFLAGS) $(INCPATH) -o libco_test.o libco_test.cpp
+
+core:  libco_core.o
+	$(LINK) $(LFLAGS) -o core libco_core.o $(LIBS)
+
+libco_core.o: libco_core.cpp
+	$(CXX) -c $(CFLAGS) $(INCPATH) -o libco_core.o libco_core.cpp

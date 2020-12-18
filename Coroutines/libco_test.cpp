@@ -182,7 +182,7 @@ int main()
 	setNonBlock(sock_fd);
 
 	//read_write_routines
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 1; ++i)
 	{
 		task *co_task = new task();
 		co_task->fd = -1;
