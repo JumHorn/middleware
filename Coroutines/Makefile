@@ -9,7 +9,7 @@ CXX           = g++
 DEFINES       = -Dlinux
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -std=c++11 -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I/Users/jum/OpenSource/libco
+INCPATH       = -I/Users/jumhorn/OpenSource/libco
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
 MKDIR         = mkdir -p
@@ -27,7 +27,7 @@ TAR           = tar -cf
 COMPRESS      = gzip -9f
 LINK          = g++
 # LFLAGS        = -Wl,--no-undefined -Wl,-rpath,'$$ORIGIN'
-LIBS          = $(SUBLIBS) -L/Users/jum/OpenSource/libco/lib -lcolib
+LIBS          = $(SUBLIBS) -L/Users/jumhorn/OpenSource/libco/lib -lcolib
 AR            = ar cqs
 RANLIB        =
 SED           = sed
