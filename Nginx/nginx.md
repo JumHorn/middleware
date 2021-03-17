@@ -85,7 +85,7 @@ ngx_http_init_listening
 由于nginx是多进程模式,所以接收数据的代码和master process不再一个线程里
 这里用vscode调试或者其他工具调试需要attach to process id
 vscode配置如下
-```vscode
+```json
 {
 	"name": "debug running process",
 	"type": "cppdbg",
