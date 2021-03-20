@@ -12,6 +12,9 @@
 
 1. protobuffer自动生成类的定义
 2. protobuffer序列化原理
+> https://developers.google.com/protocol-buffers/docs/encoding
+
+	varint
 
 ## brpc
 
