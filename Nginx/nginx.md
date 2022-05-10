@@ -99,7 +99,7 @@ vscode配置如下
 
 2. 进入http事件过程
 ```C
-ngx_event_accept()//接收http请求
+ngx_event_accept();//接收http请求
 ngx_http_init_connection();//初始化http连接
 ngx_http_wait_request_handler();//处理request
 ngx_http_process_request();
