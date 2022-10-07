@@ -1,35 +1,27 @@
 # nginx
 
-### 命令
+	使用vscode调试nginx
+
+## 命令
 1. -p
 
 指定日志路径的前缀
 
-### 配置
+## 配置
 1. 非daemon方式运行
 daemon off;
 
-### log
+## log
 
 1. 查看nginx.conf
 
 /var/log/nginx/error.log(centos)
 
-### permition denied
-
-文件部署在/root目录下(权限不对)
-
-### fastcgi
-
-### 负载均衡配置
-
-
-
 # nginx运行原理
 
 nginx源码分析执行过程
 
-### 配置
+## 配置
 
 1. nginx的配置对应于
 
@@ -48,7 +40,7 @@ ngx_get_options()
 ngx_conf_parse() //processed token by token
 ```
 
-### event事件
+## event事件
 
 1. 在初始化全局配置后的最后完成监听socket的创建
 ```C
@@ -68,7 +60,7 @@ ngx_process_events_and_timers();//子进程处理所有事件
 ngx_event_core_init_conf();
 ```
 
-### http请求处理流程
+## http请求处理流程
 
 1. 初始化添加handler
 ```C
@@ -135,7 +127,7 @@ typedef enum {
 ngx_http_init_phase_handlers
 ```
 
-### module加载机制
+## module加载机制
 
 1. configure时将module添加到ngx_modules数组中
 
@@ -148,7 +140,7 @@ ngx_http_init_phase_handlers
 ngx_module_t *ngx_modules[]
 ```
 
-### 重要module解析
+## 重要module解析
 
 1. upstream
 
