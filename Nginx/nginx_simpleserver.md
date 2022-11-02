@@ -53,6 +53,7 @@ server {
 	location /upload{
 		alias     /home/www/upload;
         client_body_temp_path  /home/www/upload;
+		client_max_body_size 100M;
         dav_methods  PUT DELETE MKCOL COPY MOVE;
         create_full_put_path   on;
         dav_access             group:rw  all:r;
