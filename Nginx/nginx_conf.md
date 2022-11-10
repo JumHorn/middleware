@@ -70,6 +70,52 @@ server{
 }
 ```
 
+## 二级域名(subdomain)
+
+	nginx配置中server下的server_name可以匹配二级域名
+	让不同域名,访问不同服务
+```config
+server{
+	listen 80;
+	server_name a.domain.com;
+}
+
+server{
+	listen 80;
+	server_name b.domain.com;
+}
+```
+
+## location root alias
+
+1. location配合root
+
+	表示访问路径为http://domain.com/images/a.jpg 将转化为访问root即本地
+	/home/www/images/a.jpg
+```config
+server{
+	listen 80;
+	root /home/www;
+	location /images {
+	}
+}
+```
+
+2. location配合alias
+
+	表示访问路径为http://domain.com/images/a.jpg 将转化为访问本地
+	/home/www/a.jpg,并不加上url，同时alias要以/结尾
+```config
+server{
+	listen 80;
+	alias /home/www/;
+	location /images {
+	}
+}
+```
+
+## 反向代理(proxy_pass)
+
 ## FAQ
 1. permition denied
 
