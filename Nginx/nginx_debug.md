@@ -1,6 +1,6 @@
 # nginx
 
-	使用vscode调试nginx
+	使用vscode调试nginx源码
 
 ## 命令
 1. -p

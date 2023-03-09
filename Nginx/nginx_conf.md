@@ -1,6 +1,6 @@
 # nginx常用配置
 
-	配置简单的http服务器
+	nginx常用配置总结
 
 ## 负载均衡配置
 
@@ -73,7 +73,7 @@ server{
 ## 二级域名(subdomain)
 
 	nginx配置中server下的server_name可以匹配二级域名
-	让不同域名,访问不同服务
+	让不同域名,访问不同服务器。配置二级域名需要同时在DNS配置
 ```config
 server{
 	listen 80;
@@ -90,8 +90,8 @@ server{
 
 1. location配合root
 
-	表示访问路径为http://domain.com/images/a.jpg 将转化为访问root即本地
-	/home/www/images/a.jpg
+	如果访问http://domain.com/images/a.jpg,
+	将转化为访问root即本地/home/www/images/a.jpg
 ```config
 server{
 	listen 80;
@@ -103,8 +103,8 @@ server{
 
 2. location配合alias
 
-	表示访问路径为http://domain.com/images/a.jpg 将转化为访问本地
-	/home/www/a.jpg,并不加上url，同时alias要以/结尾
+	如果访问http://domain.com/images/a.jpg,
+	将转化为访问本地/home/www/a.jpg,并不加上路径images，**同时alias要以/结尾**
 ```config
 server{
 	listen 80;
@@ -114,49 +114,41 @@ server{
 }
 ```
 
-## video stream
-
-	配置nginx播放mp4视频
-```config
-location ~/.mp4 {
-	root /media;
-	mp4;
-	mp4_buffer_size     1M;
-	mp4_max_buffer_size 3M;
-
-	# enable thread bool
-	aio threads=default;
-
-	# enable caching for mp4 videos
-	proxy_cache mycache;
-	proxy_cache_valid 200 300s;
-	proxy_cache_lock on;
-
-	# enable nginx slicing
-	slice              1m;
-	proxy_cache_key    $host$uri$is_args$args$slice_range;
-	proxy_set_header   Range $slice_range;
-	proxy_http_version 1.1;
-
-	# Immediately forward requests to the origin if we are filling the cache
-	proxy_cache_lock_timeout 0s;
-
-	# Set the 'age' to a value larger than the expected fill time
-	proxy_cache_lock_age 200s;
-
-	proxy_cache_use_stale updating;
-
-}
-```
-
 ## 反向代理(proxy_pass)
 
 ## FAQ
-1. permition denied
+* location结尾有/和没有/的区别
 
-文件部署在/root目录下(权限不对)
+	/path表示要完全匹配 \
+	/path/表示匹配以/path/为前缀的uri
 
-2. 测试配置文件
+* proxy_pass结尾有/和没有/的区别
+```config
+// http://server/images/a.jpg ==> http://domain.com/a.jpg
+// 忽略了/images/
+server{
+	listen 80;
+	location /images/ {
+		proxy_pass http://domain.com/;
+	}
+}
+
+// http://server/images/a.jpg ==> http://domain.com/images/a.jpg
+// 没有忽略/images/
+server{
+	listen 80;
+	location /images/ {
+		proxy_pass http://domain.com;
+	}
+}
+```
+* permition denied
+
+	文件部署在/root目录下(权限不对)
+
+* 测试配置文件
 ```shell
 nginx -t
 ```
+
+* proxy_redirect

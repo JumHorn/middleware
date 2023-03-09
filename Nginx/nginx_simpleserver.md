@@ -30,6 +30,31 @@ server {
 }
 ```
 
+# location代理
+
+	配置服务器的一个location作为代理，通过该location访问特定服务.
+	以下例子表示通过服务器的/vscode路径，访问内部vscode服务
+
+## 配置
+```config
+location /vscode/ {
+	proxy_pass  http://127.0.0.1:8080/;
+
+	// 当vscode返回/login时默认被location /匹配了,此时需要修改该请求
+	// 将/login转为/vscode/login,继续由/location /vscode/处理请求
+	proxy_redirect http://127.0.0.1:8080/ https://$host/vscode/;
+
+	// 支持websocket
+	proxy_http_version 1.1;
+	proxy_read_timeout 300;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection "upgrade";
+	proxy_set_header Host $http_host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Real-PORT $remote_port;
+	}
+```
+
 # 文件上传服务器
 
 	配置简单的文件上传服务器
@@ -74,6 +99,41 @@ server {
 curl -T data.txt http://jumhorn.com/upload/
 # 改变名字上传到服务器
 curl -T data.txt http://jumhorn.com/upload/newname.txt
+```
+
+## 视频流服务器
+
+	配置nginx播放mp4视频
+```config
+location ~/.mp4 {
+	root /media;
+	mp4;
+	mp4_buffer_size     1M;
+	mp4_max_buffer_size 3M;
+
+	# enable thread bool
+	aio threads=default;
+
+	# enable caching for mp4 videos
+	proxy_cache mycache;
+	proxy_cache_valid 200 300s;
+	proxy_cache_lock on;
+
+	# enable nginx slicing
+	slice              1m;
+	proxy_cache_key    $host$uri$is_args$args$slice_range;
+	proxy_set_header   Range $slice_range;
+	proxy_http_version 1.1;
+
+	# Immediately forward requests to the origin if we are filling the cache
+	proxy_cache_lock_timeout 0s;
+
+	# Set the 'age' to a value larger than the expected fill time
+	proxy_cache_lock_age 200s;
+
+	proxy_cache_use_stale updating;
+
+}
 ```
 
 ## 问题
