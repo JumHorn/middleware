@@ -60,7 +60,7 @@ location = /cmd {
 ```conf
 server{
 	listen  443 ssl; #监听端口
-    server_name  a.domain.com; #请求域名
+	server_name  a.domain.com; #请求域名
 	ssl on; #开启ssl
 	ssl_certificate /home/cert/a.domain.com.pem; #pem证书路径
 	ssl_certificate_key     /home/cert/a.domain.com.key; #pem证书key路径
@@ -115,6 +115,40 @@ server{
 ```
 
 ## 反向代理(proxy_pass)
+
+## stream
+```config
+# SNI 分流
+stream {
+	map $ssl_preread_server_name $name {
+		jumhorn.com   127.0.0.1:50443;
+		default          127.0.0.1:8880;
+	}
+
+	server {
+		listen      443;
+		proxy_pass  $name;
+		ssl_preread on;
+	}
+}
+```
+
+## 默认服务器
+```config
+# avoid to config ssl certificate for default server
+map "" $empty {
+        default "";
+}
+
+server {
+        listen 127.0.0.1:8880 default_server;
+        server_name _;
+
+        ssl_certificate data:$empty;
+        ssl_certificate_key data:$empty;
+        return 444;
+}
+```
 
 ## FAQ
 * location结尾有/和没有/的区别
