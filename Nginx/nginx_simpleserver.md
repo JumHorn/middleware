@@ -135,12 +135,20 @@ location ~/.mp4 {
 
 }
 ```
+# 实战案例
 
-## 问题
+[nginx configure](./nginx.conf)
+
+# 错误分享
+
+	nginx遇到错误要分析问题原因，首先access/error log是非常有用的
+	然后是分析浏览器F12调试请求
+
+# 问题
 1. Permission denied
 
 * 检查所有目录都具有执行权限
-	nginx需要所有目录都有执行权限，所以不要将根目录放在$HOME下
+	nginx需要所有目录都有执行权限
 
 * 检查upload文件夹所属者
 
