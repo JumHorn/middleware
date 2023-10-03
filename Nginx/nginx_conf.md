@@ -189,3 +189,6 @@ nginx -t
 ```
 
 * proxy_redirect
+* SNI ssl error
+
+ 	当服务器配置了SNI时，会出现ssl握手错误，此时需要加上proxy_ssl_server_name on;
