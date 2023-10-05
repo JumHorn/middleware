@@ -1,12 +1,42 @@
 # FastCGI
 
-	FastCGI Developer's Kit
+    FastCGI Developer's Kit
 
 ## 安装开发包和工具
 1. 启动工具
 ```shell
-dnf install spawn-fcgi
+sudo apt install spawn-fcgi
+sudo apt-get install fcgiwrap # cgi over FastCGI
 ```
 2. 开发包
 
 ## 配置nginx
+```nginx
+location /cgi/ {
+    # Fastcgi socket
+    fastcgi_pass  unix:/var/run/fcgiwrap.socket;
+
+    # Fastcgi parameters, include the standard ones
+    include fastcgi_params;
+
+    # Adjust non standard parameters (SCRIPT_FILENAME)
+	root /home/amdin/www; # root必须填，否则默认的root是/home/admin/www/api;
+    fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+}
+```
+
+## 生成FastCGI进程
+```shell
+systemctl restart fcgiwrap
+```
+
+## FAQ
+1. 502 error
+
+	用浏览器调试时，如果返回的不是完整的网页，则浏览器无法显示并报错。
+	所以要返回Content-type: text/html等完整内容，否则不应当用浏览器调试
+
+2. DOCUMENT_ROOT and SCRIPT_NAME
+
+	报错时fcgiwrap如果没有设置document_root，那么默认的root不是nginx网页根目录，
+	而是fcgiwrap运行时相对路径，所以必须设置document_root
