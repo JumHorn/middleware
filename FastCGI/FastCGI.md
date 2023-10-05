@@ -34,7 +34,9 @@ systemctl restart fcgiwrap
 1. 502 error
 
 	用浏览器调试时，如果返回的不是完整的网页，则浏览器无法显示并报错。
-	所以要返回Content-type: text/html等完整内容，否则不应当用浏览器调试
+	CGI必须返回Content-type: text/html，否则web服务器都会报错502 Internal Server Error
+	Content-type类型 text/plain,application/json
+	Content-type之后会后两个换行(\r\n)
 
 2. DOCUMENT_ROOT and SCRIPT_NAME
 
