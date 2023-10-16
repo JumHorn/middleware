@@ -20,7 +20,7 @@ location /cgi/ {
     include fastcgi_params;
 
     # Adjust non standard parameters (SCRIPT_FILENAME)
-	root /home/amdin/www; # root必须填，否则默认的root是/home/admin/www/api;
+    root /home/amdin/www; # root必须填，否则默认的root是/usr/share/nginx/html;
     fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
 }
 ```
@@ -40,5 +40,5 @@ systemctl restart fcgiwrap
 
 2. DOCUMENT_ROOT and SCRIPT_NAME
 
-	报错时fcgiwrap如果没有设置document_root，那么默认的root不是nginx网页根目录，
-	而是fcgiwrap运行时相对路径，所以必须设置document_root
+	报错时fcgiwrap如果没有设置document_root，那么默认的root是nginx网页根目录，
+	也就是nginx的默认目录，如/usr/share/nginx/html
