@@ -153,33 +153,75 @@ server {
 ## FAQ
 * location结尾有/和没有/的区别
 
-	/path表示要完全匹配 \
-	/path/表示匹配以/path/为前缀的uri
+1. url传递给后端时的区别
 
-* proxy_pass结尾有/和没有/的区别
+	由于proxy_pass后没有路径，那么proxy_pass直接忽略匹配好的location部分，
+	所以proxy_pass都加上路径"/",此时对比就知道location有无“/”区别
 ```config
-// http://server/images/a.jpg ==> http://domain.com/a.jpg
-// 忽略了/images/
+// http://nginx/images/a.jpg ==> http://backend/images/a.jpg
+// 当请求经过nginx时，匹配到image后，不会忽略/images/，把image/a.jpg传递给后端
+server{
+	listen 80;
+	location /images {
+		proxy_pass http://domain.com/;
+	}
+}
+
+// http://nginx/images/a.jpg ==> http://backend/a.jpg
+// 当请求经过nginx时，匹配到image后，会忽略/images/，把a.jpg传递给后端
 server{
 	listen 80;
 	location /images/ {
 		proxy_pass http://domain.com/;
 	}
 }
+```
+2. 后端重定向区别
 
-// http://server/images/a.jpg ==> http://domain.com/images/a.jpg
-// 没有忽略/images/
+	还有一个重要的区别是，当服务端返回重定向时(如./login或者/login)
+
+```conf
+// 没有/结尾的location，/login重定向用的是绝对路径http://backend/login
+server{
+	listen 80;
+	location /images {
+		proxy_pass http://backend/;
+	}
+}
+
+// 有/结尾的location，/login重定向用的是相对路径http://backend/images/login
 server{
 	listen 80;
 	location /images/ {
+		proxy_pass http://backend/;
+	}
+}
+```
+
+* proxy_pass结尾有/和没有/的区别
+```config
+// http://nginx/images/a.jpg ==> http://backend/a.jpg
+// 当请求经过nginx时，匹配到image后，会忽略/images/，把a.jpg传递给后端
+server{
+	listen 80;
+	location /images {
 		proxy_pass http://domain.com;
+	}
+}
+
+// http://nginx/images/a.jpg ==> http://backend/images/a.jpg
+// 没有忽略/images/
+server{
+	listen 80;
+	location /images {
+		proxy_pass http://domain.com/;
 	}
 }
 ```
 	总结分析: 虽然带上/images没有配置时，nginx自动301跳转到/images/下,这个自动跳转要注意可能存在错误
 	自动跳转的域名加端口号可能不是所需要的，排查问题要小心
 
-* permition denied
+* permission denied
 
 	文件部署在/root目录下(权限不对)
 
